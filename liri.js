@@ -127,18 +127,3 @@ var main = function (command, input) {
 }
 
 main(command, input);
-
-/*
-if (command === 'movie-this') {
-  movieThis(input);
-}
-if (command === 'spotify-this-song') {
-  spotifyThis(input);
-}
-if (command === 'my-tweets') {
-  myTweets();
-}
-if (command === 'do-what-it-says') {
-  doRandom();
-}
-*/
