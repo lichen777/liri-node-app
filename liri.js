@@ -10,8 +10,6 @@ var client = new Twitter(keys.twitter);
 
 var request = require('request');
 
-var command = process.argv[2];
-
 var movieThis = function (movieName) {
   var queryUrl = "http://www.omdbapi.com/?t=" + movieName + "&y=&plot=short&apikey=trilogy";
   //console.log(queryUrl);
@@ -93,14 +91,44 @@ var myTweets = function () {
     }
     var tweetsList = tweets.statuses;
     for (tweet of tweetsList) {
-      console.log("Tweets created at: " + tweet.created_at);
+      console.log("#Tweet created at: " + tweet.created_at);
       console.log("Tweet: " + tweet.text);
     }
   });
 }
 
+var doRandom = function () {
+  fs.readFile('random.txt', "utf-8", function(error, data) {
+    var array = data.trim().split(",");
+    //console.log(array);
+    main(array[0], array[1]);
+  })
+}
+
+var command = process.argv[2];
 var input = process.argv.slice(3).join(" ");
 
+var main = function (command, input) {
+  console.log('<><><><><><><><><><><><><>');
+  switch (command) {
+    case 'movie-this':
+      movieThis(input);
+      break;
+    case 'spotify-this-song':
+      spotifyThis(input);
+      break;
+    case 'my-tweets':
+      myTweets();
+      break;
+    case 'do-what-it-says':
+      doRandom();
+      break;
+  }
+}
+
+main(command, input);
+
+/*
 if (command === 'movie-this') {
   movieThis(input);
 }
@@ -110,3 +138,7 @@ if (command === 'spotify-this-song') {
 if (command === 'my-tweets') {
   myTweets();
 }
+if (command === 'do-what-it-says') {
+  doRandom();
+}
+*/
