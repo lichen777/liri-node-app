@@ -12,7 +12,7 @@ var request = require('request');
 
 var command = process.argv[2];
 
-var movieThis = function(movieName) {
+var movieThis = function (movieName) {
   var queryUrl = "http://www.omdbapi.com/?t=" + movieName + "&y=&plot=short&apikey=trilogy";
   //console.log(queryUrl);
   request(queryUrl, function(error, response, body) {
@@ -50,7 +50,63 @@ var movieThis = function(movieName) {
   return
 }
 
+var spotifyThis = function (songName) {
+  if (!songName) {
+    return spotifyThis("The Sign, Ace of Base");
+  }
+  spotify.search({ type: 'track', query: songName, limit: 5}, function(err, data) {
+    if (err) {
+      return console.log('Error occurred: ' + err);
+    }
+    //console.log(data.tracks.items);
+    if(data.tracks.total === 0) {
+      console.log("Song not Found!");
+      console.log("If you haven't Listened to 'The Sign' by Ace of Base, then you should:");
+      return spotifyThis("The Sign, Ace of Base");
+    } else {
+      var response = data.tracks.items[0];
+      if (response.artists.length === 1) {
+        console.log("Artist: " + response.artists[0].name);
+      } else {
+        var artistList = "Artists: ";
+        for (key in response.artists) {
+          if (key == 0) {
+           artistList += response.artists[key].name;
+          } else {
+           artistList += ", " + response.artists[key].name;
+          }
+        }
+        console.log(artistList);
+      }
+      console.log("The song's name: " + response.name);
+      console.log("A preview link of the song from Spotify: " + response.preview_url);
+      console.log("The album that the song is from: " + response.album.name);
+    }
+  })
+  return
+}
+
+var myTweets = function () {
+  client.get('search/tweets', {q: 'nodejs'}, function(error, tweets, response) {
+    if (error) {
+      return console.log('Error occurred: ' + error);
+    }
+    var tweetsList = tweets.statuses;
+    for (tweet of tweetsList) {
+      console.log("Tweets created at: " + tweet.created_at);
+      console.log("Tweet: " + tweet.text);
+    }
+  });
+}
+
+var input = process.argv.slice(3).join(" ");
+
 if (command === 'movie-this') {
-  var movieName = process.argv.slice(3).join("+");
-  movieThis(movieName);
-};
+  movieThis(input);
+}
+if (command === 'spotify-this-song') {
+  spotifyThis(input);
+}
+if (command === 'my-tweets') {
+  myTweets();
+}
