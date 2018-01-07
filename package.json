@@ -1,0 +1,19 @@
+{
+  "name": "liri-node-app",
+  "version": "1.0.0",
+  "description": "LIRI Bot",
+  "main": "liri.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/lichen777/liri-node-app.git"
+  },
+  "author": "Chen Li",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/lichen777/liri-node-app/issues"
+  },
+  "homepage": "https://github.com/lichen777/liri-node-app#readme"
+}
