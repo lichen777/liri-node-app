@@ -85,14 +85,15 @@ var spotifyThis = function (songName) {
 }
 
 var myTweets = function () {
-  client.get('search/tweets', {q: 'nodejs'}, function(error, tweets, response) {
+  client.get('statuses/user_timeline', {screen_name: 'nodejs', count: 20}, function(error, tweets, response) {
     if (error) {
       return console.log('Error occurred: ' + error);
     }
-    var tweetsList = tweets.statuses;
+    //console.log(tweets);
+    var tweetsList = tweets;
     for (tweet of tweetsList) {
       console.log("#Tweet created at: " + tweet.created_at);
-      console.log("Tweet: " + tweet.text);
+      console.log("Tweet: " + tweet.text + "\n");
     }
   });
 }
@@ -109,7 +110,7 @@ var command = process.argv[2];
 var input = process.argv.slice(3).join(" ");
 
 var main = function (command, input) {
-  console.log('<><><><><><><><><><><><><>');
+  console.log('\n\n');
   switch (command) {
     case 'movie-this':
       movieThis(input);
@@ -122,6 +123,9 @@ var main = function (command, input) {
       break;
     case 'do-what-it-says':
       doRandom();
+      break;
+    default :
+      console.log("I don't think I understand you!");
       break;
   }
 }
