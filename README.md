@@ -11,3 +11,5 @@ LIRI can
 * show the name, aritist(s), preview link of the song you asked from Spofity
 * show the title, release year, rating, and other information of the movie you asked form OMDB
 * do some random stuff if you don't know what you want to ask.
+
+![Image of LIRI Bot Demo](/liri-demo1.gif)
